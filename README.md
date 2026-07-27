@@ -54,7 +54,7 @@ Converts text to uppercase using Turkish character rules.
 
 ```typescript
 TrText.TurkishToUpper('istanbul');     // İSTANBUL
-TrText.TurkishToUpper('çankırı');      // ÇANKIRI
+TrText.TurkishToUpper('söğütlüçeşme');      // SÖĞÜTLÜÇEŞME
 TrText.TurkishToUpper('mühendis');     // MÜHENDİS
 ```
 
@@ -63,7 +63,7 @@ Converts text to lowercase using Turkish character rules.
 
 ```typescript
 TrText.TurkishToLower('ISTANBUL');     // istanbul
-TrText.TurkishToLower('ÇANKIRI');      // çankırı
+TrText.TurkishToLower('SÖĞÜTLÜÇEŞME');  // söğütlüçeşme
 TrText.TurkishToLower('MÜHENDİS');     // mühendis
 ```
 
@@ -98,7 +98,7 @@ Converts Turkish characters to ASCII equivalents and removes non-alphanumeric ch
 
 ```typescript
 TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TrText.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
+TrText.RemoveTurkishChars('Söğütlüçeşme-İzmir');    //Sogutlucesme-Izmir
 ```
 
 #### `ReverseTurkish(text: string): string`
@@ -106,14 +106,14 @@ Reverses the `ToTurkish` operation (converts Turkish uppercase back to ASCII).
 
 ```typescript
 TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TrText.ReverseTurkish('ÇANKIRI');   // CANKIRI
+TrText.ReverseTurkish('SÖĞÜTLÜÇEŞME');   // SOGUTLUCESME
 ```
 
 #### `StripTurkishDiacritics(text: string): string`
 Removes Turkish diacritics while keeping base letters.
 
 ```typescript
-TrText.StripTurkishDiacritics('çankırı');     // cankiri
+TrText.StripTurkishDiacritics('söğütlüçeşme');     // sogutlucesme
 TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 ```
 
@@ -142,7 +142,7 @@ Counts Turkish characters in text.
 
 ```typescript
 TrText.GetTurkishCharCount('Merhaba');        // 0
-TrText.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
+TrText.GetTurkishCharCount('Söğütlüçeşme');        // 5 (ö,ü,ü,ç,ş)
 TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
 ```
 
@@ -224,7 +224,7 @@ Metni Türkçe karakter kurallarını kullanarak büyük harfe dönüştürür.
 
 ```typescript
 TrText.TurkishToUpper('istanbul');     // İSTANBUL
-TrText.TurkishToUpper('çankırı');      // ÇANKIRI
+TrText.TurkishToUpper('söğütlüçeşme');      // SÖĞÜTLÜÇEŞME
 TrText.TurkishToUpper('mühendis');     // MÜHENDİS
 ```
 
@@ -233,7 +233,7 @@ Metni Türkçe karakter kurallarını kullanarak küçük harfe dönüştürür.
 
 ```typescript
 TrText.TurkishToLower('ISTANBUL');     // istanbul
-TrText.TurkishToLower('ÇANKIRI');      // çankırı
+TrText.TurkishToLower('SÖĞÜTLÜÇEŞME');      // söğütlüçeşme
 TrText.TurkishToLower('MÜHENDİS');     // mühendis
 ```
 
@@ -268,7 +268,7 @@ Türkçe karakterleri ASCII eşdeğerlerine dönüştürür ve alfanümerik olma
 
 ```typescript
 TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TrText.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
+TrText.RemoveTurkishChars('Göztepe-İzmir');    // Goztepe-Izmir
 ```
 
 #### `ReverseTurkish(text: string): string`
@@ -276,14 +276,14 @@ TrText.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
 
 ```typescript
 TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TrText.ReverseTurkish('ÇANKIRI');   // CANKIRI
+TrText.ReverseTurkish('SÖĞÜTLÜÇEŞME');   // SOGUTLUCESME
 ```
 
 #### `StripTurkishDiacritics(text: string): string`
 Türkçe diakritikleri kaldırırken temel harfleri tutar.
 
 ```typescript
-TrText.StripTurkishDiacritics('çankırı');     // cankiri
+TrText.StripTurkishDiacritics('söğütlüçeşme');     //sogutlucesme
 TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 ```
 
@@ -312,7 +312,7 @@ Metindeki Türkçe karakter sayısını sayar.
 
 ```typescript
 TrText.GetTurkishCharCount('Merhaba');        // 0
-TrText.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
+TrText.GetTurkishCharCount('Göztepe');        // 1 (ö)
 TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
 ```
 
