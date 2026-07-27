@@ -7,7 +7,6 @@ import { NameUtility } from "./NameUtility";
 import { NumberUtility } from "./NumberUtility";
 import { PhoneUtility } from "./PhoneUtility";
 import { PostalCodeUtility } from "./PostalCodeUtility";
-import { SlugUtility } from "./SlugUtility";
 
 describe("IdentityUtility", () => {
   it("validates and masks Turkish identity numbers", () => {
