@@ -18,4 +18,8 @@ export default {
     },
   ],
   plugins: [peerDepsExternal(), resolve(), commonjs(), typescript()],
+  treeshake: {
+    moduleSideEffects: false,
+    propertyReadSideEffects: false,
+  },
 };

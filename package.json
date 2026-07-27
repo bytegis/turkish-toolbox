@@ -12,6 +12,7 @@
     "README.md",
     "LICENSE"
   ],
+  "sideEffects": false,
   "scripts": {
     "test": "jest --config jest.config.js",
     "build": "rollup -c"
