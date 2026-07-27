@@ -30,19 +30,19 @@ npm install @bytegis/turkish-toolbox
 ## Quick Start
 
 ```typescript
-import { TextUtility } from '@bytegis/turkish-toolbox';
+import { TrText } from '@bytegis/turkish-toolbox';
 
 // Uppercase conversion
-TextUtility.TurkishToUpper('istanbul'); // İSTANBUL
+TrText.TurkishToUpper('istanbul'); // İSTANBUL
 
 // Lowercase conversion 
-TextUtility.TurkishToLower('İSTANBUL'); // istanbul
+TrText.TurkishToLower('İSTANBUL'); // istanbul
 
 // Capitalize
-TextUtility.TurkishCapitalize('istanbul'); // İstanbul
+TrText.TurkishCapitalize('istanbul'); // İstanbul
 
 // Check for Turkish characters
-TextUtility.ContainsTurkishChars('Merhaba'); // true
+TrText.ContainsTurkishChars('Merhaba'); // true
 ```
 
 ## API Reference
@@ -53,34 +53,34 @@ TextUtility.ContainsTurkishChars('Merhaba'); // true
 Converts text to uppercase using Turkish character rules.
 
 ```typescript
-TextUtility.TurkishToUpper('istanbul');     // İSTANBUL
-TextUtility.TurkishToUpper('çankırı');      // ÇANKIRI
-TextUtility.TurkishToUpper('mühendis');     // MÜHENDİS
+TrText.TurkishToUpper('istanbul');     // İSTANBUL
+TrText.TurkishToUpper('çankırı');      // ÇANKIRI
+TrText.TurkishToUpper('mühendis');     // MÜHENDİS
 ```
 
 #### `TurkishToLower(text: string): string`
 Converts text to lowercase using Turkish character rules.
 
 ```typescript
-TextUtility.TurkishToLower('ISTANBUL');     // istanbul
-TextUtility.TurkishToLower('ÇANKIRI');      // çankırı
-TextUtility.TurkishToLower('MÜHENDİS');     // mühendis
+TrText.TurkishToLower('ISTANBUL');     // istanbul
+TrText.TurkishToLower('ÇANKIRI');      // çankırı
+TrText.TurkishToLower('MÜHENDİS');     // mühendis
 ```
 
 #### `TurkishCapitalize(text: string): string`
 Capitalizes the first character with Turkish rules.
 
 ```typescript
-TextUtility.TurkishCapitalize('istanbul');  // İstanbul
-TextUtility.TurkishCapitalize('ankara');    // Ankara
+TrText.TurkishCapitalize('istanbul');  // İstanbul
+TrText.TurkishCapitalize('ankara');    // Ankara
 ```
 
 #### `TurkishToggleCase(text: string): string`
 Toggles case (uppercase ↔ lowercase) respecting Turkish rules.
 
 ```typescript
-TextUtility.TurkishToggleCase('İstanbul');  // İSTANBUL
-TextUtility.TurkishToggleCase('ANKARA');    // ankara
+TrText.TurkishToggleCase('İstanbul');  // İSTANBUL
+TrText.TurkishToggleCase('ANKARA');    // ankara
 ```
 
 ### Character Transformation
@@ -89,32 +89,32 @@ TextUtility.TurkishToggleCase('ANKARA');    // ankara
 Converts ASCII text to uppercase with Turkish character support.
 
 ```typescript
-TextUtility.ToTurkish('istanbul');  // İSTANBUL
-TextUtility.ToTurkish('ankara');    // ANKARA
+TrText.ToTurkish('istanbul');  // İSTANBUL
+TrText.ToTurkish('ankara');    // ANKARA
 ```
 
 #### `RemoveTurkishChars(text: string): string`
 Converts Turkish characters to ASCII equivalents and removes non-alphanumeric characters.
 
 ```typescript
-TextUtility.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TextUtility.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
+TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
+TrText.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
 ```
 
 #### `ReverseTurkish(text: string): string`
 Reverses the `ToTurkish` operation (converts Turkish uppercase back to ASCII).
 
 ```typescript
-TextUtility.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TextUtility.ReverseTurkish('ÇANKIRI');   // CANKIRI
+TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
+TrText.ReverseTurkish('ÇANKIRI');   // CANKIRI
 ```
 
 #### `StripTurkishDiacritics(text: string): string`
 Removes Turkish diacritics while keeping base letters.
 
 ```typescript
-TextUtility.StripTurkishDiacritics('çankırı');     // cankiri
-TextUtility.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
+TrText.StripTurkishDiacritics('çankırı');     // cankiri
+TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 ```
 
 ### Text Analysis
@@ -123,27 +123,27 @@ TextUtility.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 Checks if text contains any Turkish characters.
 
 ```typescript
-TextUtility.ContainsTurkishChars('Merhaba');       // true
-TextUtility.ContainsTurkishChars('Hello');         // false
-TextUtility.ContainsTurkishChars('Hello Dünya');   // true
+TrText.ContainsTurkishChars('Merhaba');       // true
+TrText.ContainsTurkishChars('Hello');         // false
+TrText.ContainsTurkishChars('Hello Dünya');   // true
 ```
 
 #### `IsMixedCase(text: string): boolean`
 Checks if text contains both uppercase and lowercase characters.
 
 ```typescript
-TextUtility.IsMixedCase('Istanbul');   // true
-TextUtility.IsMixedCase('ISTANBUL');   // false
-TextUtility.IsMixedCase('istanbul');   // false
+TrText.IsMixedCase('Istanbul');   // true
+TrText.IsMixedCase('ISTANBUL');   // false
+TrText.IsMixedCase('istanbul');   // false
 ```
 
 #### `GetTurkishCharCount(text: string): number`
 Counts Turkish characters in text.
 
 ```typescript
-TextUtility.GetTurkishCharCount('Merhaba');        // 0
-TextUtility.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
-TextUtility.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
+TrText.GetTurkishCharCount('Merhaba');        // 0
+TrText.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
+TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
 ```
 
 ## Turkish Characters Supported
@@ -200,19 +200,19 @@ npm install @bytegis/turkish-toolbox
 ## Hızlı Başlangıç
 
 ```typescript
-import { TextUtility } from '@bytegis/turkish-toolbox';
+import { TrText } from '@bytegis/turkish-toolbox';
 
 // Büyük harfe dönüştürme
-TextUtility.TurkishToUpper('istanbul'); // İSTANBUL
+TrText.TurkishToUpper('istanbul'); // İSTANBUL
 
 // Küçük harfe dönüştürme
-TextUtility.TurkishToLower('İSTANBUL'); // istanbul
+TrText.TurkishToLower('İSTANBUL'); // istanbul
 
 // İlk harfi büyüt
-TextUtility.TurkishCapitalize('istanbul'); // İstanbul
+TrText.TurkishCapitalize('istanbul'); // İstanbul
 
 // Türkçe karakter kontrolü
-TextUtility.ContainsTurkishChars('Merhaba'); // true
+TrText.ContainsTurkishChars('Merhaba'); // true
 ```
 
 ## API Referansı
@@ -223,34 +223,34 @@ TextUtility.ContainsTurkishChars('Merhaba'); // true
 Metni Türkçe karakter kurallarını kullanarak büyük harfe dönüştürür.
 
 ```typescript
-TextUtility.TurkishToUpper('istanbul');     // İSTANBUL
-TextUtility.TurkishToUpper('çankırı');      // ÇANKIRI
-TextUtility.TurkishToUpper('mühendis');     // MÜHENDİS
+TrText.TurkishToUpper('istanbul');     // İSTANBUL
+TrText.TurkishToUpper('çankırı');      // ÇANKIRI
+TrText.TurkishToUpper('mühendis');     // MÜHENDİS
 ```
 
 #### `TurkishToLower(text: string): string`
 Metni Türkçe karakter kurallarını kullanarak küçük harfe dönüştürür.
 
 ```typescript
-TextUtility.TurkishToLower('ISTANBUL');     // istanbul
-TextUtility.TurkishToLower('ÇANKIRI');      // çankırı
-TextUtility.TurkishToLower('MÜHENDİS');     // mühendis
+TrText.TurkishToLower('ISTANBUL');     // istanbul
+TrText.TurkishToLower('ÇANKIRI');      // çankırı
+TrText.TurkishToLower('MÜHENDİS');     // mühendis
 ```
 
 #### `TurkishCapitalize(text: string): string`
 Türkçe kurallarıyla ilk karakteri büyüklüklü yapar.
 
 ```typescript
-TextUtility.TurkishCapitalize('istanbul');  // İstanbul
-TextUtility.TurkishCapitalize('ankara');    // Ankara
+TrText.TurkishCapitalize('istanbul');  // İstanbul
+TrText.TurkishCapitalize('ankara');    // Ankara
 ```
 
 #### `TurkishToggleCase(text: string): string`
 Büyük/küçük harf değişimi yapar ve Türkçe kurallarına uyar.
 
 ```typescript
-TextUtility.TurkishToggleCase('İstanbul');  // İSTANBUL
-TextUtility.TurkishToggleCase('ANKARA');    // ankara
+TrText.TurkishToggleCase('İstanbul');  // İSTANBUL
+TrText.TurkishToggleCase('ANKARA');    // ankara
 ```
 
 ### Karakter Dönüştürme
@@ -259,32 +259,32 @@ TextUtility.TurkishToggleCase('ANKARA');    // ankara
 ASCII metni Türkçe karakter desteğiyle büyük harfe dönüştürür.
 
 ```typescript
-TextUtility.ToTurkish('istanbul');  // İSTANBUL
-TextUtility.ToTurkish('ankara');    // ANKARA
+TrText.ToTurkish('istanbul');  // İSTANBUL
+TrText.ToTurkish('ankara');    // ANKARA
 ```
 
 #### `RemoveTurkishChars(text: string): string`
 Türkçe karakterleri ASCII eşdeğerlerine dönüştürür ve alfanümerik olmayan karakterleri kaldırır.
 
 ```typescript
-TextUtility.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TextUtility.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
+TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
+TrText.RemoveTurkishChars('Çankırı-İzmir');    // Cankiri-Izmir
 ```
 
 #### `ReverseTurkish(text: string): string`
 `ToTurkish` işlemini geri alır (Türkçe büyük harfleri ASCII'ye çevirir).
 
 ```typescript
-TextUtility.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TextUtility.ReverseTurkish('ÇANKIRI');   // CANKIRI
+TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
+TrText.ReverseTurkish('ÇANKIRI');   // CANKIRI
 ```
 
 #### `StripTurkishDiacritics(text: string): string`
 Türkçe diakritikleri kaldırırken temel harfleri tutar.
 
 ```typescript
-TextUtility.StripTurkishDiacritics('çankırı');     // cankiri
-TextUtility.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
+TrText.StripTurkishDiacritics('çankırı');     // cankiri
+TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 ```
 
 ### Metin Analizi
@@ -293,27 +293,27 @@ TextUtility.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
 Metinde herhangi bir Türkçe karakter olup olmadığını kontrol eder.
 
 ```typescript
-TextUtility.ContainsTurkishChars('Merhaba');       // true
-TextUtility.ContainsTurkishChars('Hello');         // false
-TextUtility.ContainsTurkishChars('Hello Dünya');   // true
+TrText.ContainsTurkishChars('Merhaba');       // true
+TrText.ContainsTurkishChars('Hello');         // false
+TrText.ContainsTurkishChars('Hello Dünya');   // true
 ```
 
 #### `IsMixedCase(text: string): boolean`
 Metinde büyük ve küçük harflerin karışık olup olmadığını kontrol eder.
 
 ```typescript
-TextUtility.IsMixedCase('Istanbul');   // true
-TextUtility.IsMixedCase('ISTANBUL');   // false
-TextUtility.IsMixedCase('istanbul');   // false
+TrText.IsMixedCase('Istanbul');   // true
+TrText.IsMixedCase('ISTANBUL');   // false
+TrText.IsMixedCase('istanbul');   // false
 ```
 
 #### `GetTurkishCharCount(text: string): number`
 Metindeki Türkçe karakter sayısını sayar.
 
 ```typescript
-TextUtility.GetTurkishCharCount('Merhaba');        // 0
-TextUtility.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
-TextUtility.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
+TrText.GetTurkishCharCount('Merhaba');        // 0
+TrText.GetTurkishCharCount('Çankırı');        // 3 (Ç, ı, ı)
+TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
 ```
 
 ## Desteklenen Türkçe Karakterler

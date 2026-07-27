@@ -1,1 +1,1 @@
-export * from "./TextUtility";
+export * as TrText from "./TextUtility";
