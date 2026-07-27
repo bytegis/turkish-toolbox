@@ -1,4 +1,4 @@
-# Turkish Toolbox 🇹🇷
+# Turkish Toolbox EN
 
 A comprehensive TypeScript utility library for Turkish text processing. Handles Turkish character case conversion, validation, and transformation with proper support for Turkish language rules.
 
