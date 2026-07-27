@@ -1,25 +1,6 @@
-# Turkish Toolbox EN
+# Turkish Toolbox
 
-A comprehensive TypeScript utility library for Turkish text processing. Handles Turkish character case conversion, validation, and transformation with proper support for Turkish language rules.
-
-## Features
-
-✨ **Case Conversion**
-- Turkish uppercase conversion (`TurkishToUpper`)
-- Turkish lowercase conversion (`TurkishToLower`)
-- Capitalize first letter with Turkish rules (`TurkishCapitalize`)
-- Toggle case with Turkish support (`TurkishToggleCase`)
-
-🔤 **Character Transformation**
-- Convert ASCII to Turkish uppercase (`ToTurkish`)
-- Remove Turkish characters to ASCII (`RemoveTurkishChars`)
-- Reverse Turkish transformation (`ReverseTurkish`)
-- Strip Turkish diacritics (`StripTurkishDiacritics`)
-
-🔍 **Text Analysis**
-- Check for Turkish characters (`ContainsTurkishChars`)
-- Detect mixed case text (`IsMixedCase`)
-- Count Turkish characters (`GetTurkishCharCount`)
+A TypeScript utility library for Turkish text processing, localization, validation, and formatting. It includes helpers for Turkish character rules, identity numbers, phone numbers, dates, currency, addresses, names, IBANs, postal codes, and number formatting.
 
 ## Installation
 
@@ -30,304 +11,275 @@ npm install @bytegis/turkish-toolbox
 ## Quick Start
 
 ```typescript
-import { TrText } from '@bytegis/turkish-toolbox';
+import {
+  TrAddress,
+  TrCurrency,
+  TrDate,
+  TrIBAN,
+  TrIdentity,
+  TrName,
+  TrNumber,
+  TrPhone,
+  TrPostalCode,
+  TrText,
+} from "@bytegis/turkish-toolbox";
 
-// Uppercase conversion
-TrText.TurkishToUpper('istanbul'); // İSTANBUL
+TrText.TurkishToUpper("istanbul"); // İSTANBUL
+TrIdentity.IsValidTCKN("10000000146"); // true
+TrPhone.FormatNational("+90 532 123 45 67"); // 0532 123 45 67
+TrDate.Format(new Date(2026, 6, 27)); // 27 Temmuz 2026
+TrCurrency.FormatTRY(1234.5); // ₺1.234,50
+TrAddress.GetCityByPlateCode(34); // İstanbul
+TrIBAN.IsValid("TR330006100519786457841326"); // true
+TrPostalCode.IsValid("34000"); // true
+TrNumber.ParseDecimal("1.234.567,89"); // 1234567.89
+TrName.Format("ahmet yılmaz"); // Ahmet Yılmaz
+```
 
-// Lowercase conversion 
-TrText.TurkishToLower('İSTANBUL'); // istanbul
+## Modules
 
-// Capitalize
-TrText.TurkishCapitalize('istanbul'); // İstanbul
+### `TrText`
 
-// Check for Turkish characters
-TrText.ContainsTurkishChars('Merhaba'); // true
+Turkish-aware text conversion and analysis utilities.
+
+```typescript
+TrText.TurkishToUpper("istanbul"); // İSTANBUL
+TrText.TurkishToLower("ISTANBUL"); // ıstanbul
+TrText.TurkishCapitalize("istanbul"); // İstanbul
+TrText.TurkishToggleCase("İstanbul"); // iSTANBUL
+
+TrText.ToTurkish("istanbul"); // İSTANBUL
+TrText.RemoveTurkishChars("Merhaba, Dünya!"); // Merhaba Dunya
+TrText.ReverseTurkish("İSTANBUL"); // ISTANBUL
+TrText.StripTurkishDiacritics("söğütlüçeşme"); // sogutlucesme
+
+TrText.ContainsTurkishChars("Hello Dünya"); // true
+TrText.IsMixedCase("Istanbul"); // true
+TrText.GetTurkishCharCount("Söğütlüçeşme"); // 5
+```
+
+### `TrIdentity`
+
+Turkish identity number and tax number helpers.
+
+```typescript
+TrIdentity.NormalizeIdentityNumber("123 456 789 01"); // 12345678901
+TrIdentity.IsValidTCKN("10000000146"); // true
+TrIdentity.IsValidVKN("1000000000"); // true
+TrIdentity.MaskTCKN("12345678901"); // 123******01
+```
+
+### `TrPhone`
+
+Turkish phone normalization, formatting, and validation.
+
+```typescript
+TrPhone.Normalize("0532 123 45 67"); // +905321234567
+TrPhone.ToNationalNumber("+90 532 123 45 67"); // 5321234567
+TrPhone.FormatNational("905321234567"); // 0532 123 45 67
+TrPhone.FormatInternational("05321234567"); // +90 532 123 45 67
+TrPhone.IsValidPhone("+90 212 123 45 67"); // true
+TrPhone.IsValidMobile("0532 123 45 67"); // true
+TrPhone.GetOperatorPrefix("0532 123 45 67"); // 532
+```
+
+### `TrDate`
+
+Turkish date formatting, parsing, and relative labels.
+
+```typescript
+const date = new Date(2026, 6, 27);
+
+TrDate.Format(date); // 27 Temmuz 2026
+TrDate.Format(date, "short"); // 27.07.2026
+TrDate.Format(date, "iso"); // 2026-07-27
+TrDate.GetMonthName(7); // Temmuz
+TrDate.GetDayName(date); // Pazartesi
+TrDate.ParseTurkishDate("27 Temmuz 2026"); // Date
+TrDate.ToRelative(date, new Date(2026, 6, 26)); // yarın
+```
+
+Supported date formats:
+
+- `long`: `27 Temmuz 2026`
+- `short`: `27.07.2026`
+- `iso`: `2026-07-27`
+
+### `TrCurrency`
+
+Turkish lira formatting, parsing, and amount-to-words conversion.
+
+```typescript
+TrCurrency.FormatTRY(1234.5); // ₺1.234,50
+TrCurrency.ParseTRY("₺1.234,50"); // 1234.5
+TrCurrency.AmountToWords(1250.25); // bin iki yüz elli Türk lirası yirmi beş kuruş
+```
+
+### `TrAddress`
+
+Turkish city and license plate code helpers.
+
+```typescript
+TrAddress.NormalizeCity("istanbul"); // İstanbul
+TrAddress.IsValidPlateCode(34); // true
+TrAddress.GetCityByPlateCode(34); // İstanbul
+TrAddress.GetPlateCode("Ankara"); // 6
+TrAddress.Cities; // all 81 Turkish city names
+```
+
+### `TrName`
+
+Turkish-aware name formatting and masking.
+
+```typescript
+TrName.Format("ahmet yılmaz"); // Ahmet Yılmaz
+TrName.Initials("Ahmet Yılmaz"); // AY
+TrName.MaskName("Ahmet Yılmaz"); // A**** Y*****
+```
+
+### `TrIBAN`
+
+Turkish IBAN normalization, validation, and formatting.
+
+```typescript
+TrIBAN.Normalize("tr33 0006 1005 1978 6457 8413 26"); // TR330006100519786457841326
+TrIBAN.IsValid("TR330006100519786457841326"); // true
+TrIBAN.Format("TR330006100519786457841326"); // TR33 0006 1005 1978 6457 8413 26
+```
+
+### `TrPostalCode`
+
+Turkish postal code validation and normalization.
+
+```typescript
+TrPostalCode.IsValid("34000"); // true
+TrPostalCode.Normalize("34 000-123"); // 34000
+```
+
+### `TrNumber`
+
+Turkish number formatting and parsing.
+
+```typescript
+TrNumber.FormatDecimal(1234567.89); // 1.234.567,89
+TrNumber.FormatInteger(1234567.89); // 1.234.568
+TrNumber.ParseDecimal("1.234.567,89"); // 1234567.89
 ```
 
 ## API Reference
 
-### Case Conversion
+### Text
 
-#### `TurkishToUpper(text: string): string`
-Converts text to uppercase using Turkish character rules.
+| Function | Description |
+| --- | --- |
+| `TrText.TurkishToUpper(text)` | Converts text to uppercase using Turkish character rules. |
+| `TrText.TurkishToLower(text)` | Converts text to lowercase using Turkish character rules. |
+| `TrText.TurkishCapitalize(text)` | Capitalizes the first character with Turkish rules. |
+| `TrText.TurkishToggleCase(text)` | Toggles uppercase/lowercase with Turkish rules. |
+| `TrText.ToTurkish(text)` | Converts lowercase ASCII/Turkish text to Turkish uppercase. |
+| `TrText.RemoveTurkishChars(text)` | Converts Turkish letters to ASCII equivalents and removes unsupported symbols. |
+| `TrText.ReverseTurkish(text)` | Converts Turkish letters to ASCII equivalents. |
+| `TrText.StripTurkishDiacritics(text)` | Removes Turkish diacritics while keeping base letters. |
+| `TrText.ContainsTurkishChars(text)` | Checks whether text contains Turkish characters. |
+| `TrText.IsMixedCase(text)` | Checks whether text has both uppercase and lowercase letters. |
+| `TrText.GetTurkishCharCount(text)` | Counts Turkish characters in text. |
 
-```typescript
-TrText.TurkishToUpper('istanbul');     // İSTANBUL
-TrText.TurkishToUpper('söğütlüçeşme');      // SÖĞÜTLÜÇEŞME
-TrText.TurkishToUpper('mühendis');     // MÜHENDİS
-```
+### Identity
 
-#### `TurkishToLower(text: string): string`
-Converts text to lowercase using Turkish character rules.
+| Function | Description |
+| --- | --- |
+| `TrIdentity.NormalizeIdentityNumber(value)` | Removes non-digit characters. |
+| `TrIdentity.IsValidTCKN(value)` | Validates Turkish Republic identity numbers. |
+| `TrIdentity.IsValidVKN(value)` | Validates Turkish tax identity numbers. |
+| `TrIdentity.MaskTCKN(value)` | Masks a TCKN value for display. |
 
-```typescript
-TrText.TurkishToLower('ISTANBUL');     // istanbul
-TrText.TurkishToLower('SÖĞÜTLÜÇEŞME');  // söğütlüçeşme
-TrText.TurkishToLower('MÜHENDİS');     // mühendis
-```
+### Phone
 
-#### `TurkishCapitalize(text: string): string`
-Capitalizes the first character with Turkish rules.
+| Function | Description |
+| --- | --- |
+| `TrPhone.Normalize(value)` | Converts a valid Turkish number to `+90XXXXXXXXXX`. |
+| `TrPhone.ToNationalNumber(value)` | Returns the 10-digit national number when possible. |
+| `TrPhone.FormatNational(value)` | Formats as `0532 123 45 67`. |
+| `TrPhone.FormatInternational(value)` | Formats as `+90 532 123 45 67`. |
+| `TrPhone.IsValidPhone(value)` | Validates Turkish landline or mobile numbers. |
+| `TrPhone.IsValidMobile(value)` | Validates Turkish mobile numbers. |
+| `TrPhone.GetOperatorPrefix(value)` | Returns the first three national digits, such as `532`. |
 
-```typescript
-TrText.TurkishCapitalize('istanbul');  // İstanbul
-TrText.TurkishCapitalize('ankara');    // Ankara
-```
+### Date
 
-#### `TurkishToggleCase(text: string): string`
-Toggles case (uppercase ↔ lowercase) respecting Turkish rules.
+| Function | Description |
+| --- | --- |
+| `TrDate.Format(date, format?)` | Formats a date as `long`, `short`, or `iso`. |
+| `TrDate.GetMonthName(month)` | Returns the Turkish month name for `1-12`. |
+| `TrDate.GetDayName(date)` | Returns the Turkish weekday name. |
+| `TrDate.ParseTurkishDate(value)` | Parses Turkish long or numeric date strings. |
+| `TrDate.ToRelative(date, baseDate?)` | Returns labels such as `bugün`, `dün`, `yarın`, or `3 gün önce`. |
 
-```typescript
-TrText.TurkishToggleCase('İstanbul');  // İSTANBUL
-TrText.TurkishToggleCase('ANKARA');    // ankara
-```
+### Currency
 
-### Character Transformation
+| Function | Description |
+| --- | --- |
+| `TrCurrency.FormatTRY(value)` | Formats a number as Turkish lira. |
+| `TrCurrency.ParseTRY(value)` | Parses Turkish lira strings into numbers. |
+| `TrCurrency.AmountToWords(value)` | Converts an amount to Turkish lira words. |
 
-#### `ToTurkish(text: string): string`
-Converts ASCII text to uppercase with Turkish character support.
+### Address
 
-```typescript
-TrText.ToTurkish('istanbul');  // İSTANBUL
-TrText.ToTurkish('ankara');    // ANKARA
-```
+| Function | Description |
+| --- | --- |
+| `TrAddress.NormalizeCity(value)` | Returns the canonical Turkish city name. |
+| `TrAddress.IsValidPlateCode(value)` | Checks whether a license plate code is between `1` and `81`. |
+| `TrAddress.GetCityByPlateCode(value)` | Returns the city for a plate code. |
+| `TrAddress.GetPlateCode(city)` | Returns the plate code for a city. |
+| `TrAddress.Cities` | Contains all 81 Turkish city names. |
 
-#### `RemoveTurkishChars(text: string): string`
-Converts Turkish characters to ASCII equivalents and removes non-alphanumeric characters.
+### Name
 
-```typescript
-TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TrText.RemoveTurkishChars('Söğütlüçeşme-İzmir');    //Sogutlucesme-Izmir
-```
+| Function | Description |
+| --- | --- |
+| `TrName.Format(value)` | Formats person names using Turkish casing. |
+| `TrName.Initials(value)` | Returns initials from a formatted name. |
+| `TrName.MaskName(value)` | Masks each name part for display. |
 
-#### `ReverseTurkish(text: string): string`
-Reverses the `ToTurkish` operation (converts Turkish uppercase back to ASCII).
+### IBAN
 
-```typescript
-TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TrText.ReverseTurkish('SÖĞÜTLÜÇEŞME');   // SOGUTLUCESME
-```
+| Function | Description |
+| --- | --- |
+| `TrIBAN.Normalize(value)` | Removes spaces and uppercases the IBAN. |
+| `TrIBAN.IsValid(value)` | Validates Turkish IBAN format and checksum. |
+| `TrIBAN.Format(value)` | Groups an IBAN into readable blocks. |
 
-#### `StripTurkishDiacritics(text: string): string`
-Removes Turkish diacritics while keeping base letters.
+### Postal Code
 
-```typescript
-TrText.StripTurkishDiacritics('söğütlüçeşme');     // sogutlucesme
-TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
-```
+| Function | Description |
+| --- | --- |
+| `TrPostalCode.IsValid(value)` | Validates a 5-digit Turkish postal code. |
+| `TrPostalCode.Normalize(value)` | Removes non-digits and keeps the first 5 digits. |
 
-### Text Analysis
+### Number
 
-#### `ContainsTurkishChars(text: string): boolean`
-Checks if text contains any Turkish characters.
+| Function | Description |
+| --- | --- |
+| `TrNumber.FormatDecimal(value, fractionDigits?)` | Formats decimal numbers with Turkish separators. |
+| `TrNumber.FormatInteger(value)` | Formats integer values with Turkish separators. |
+| `TrNumber.ParseDecimal(value)` | Parses Turkish decimal strings into numbers. |
 
-```typescript
-TrText.ContainsTurkishChars('Merhaba');       // true
-TrText.ContainsTurkishChars('Hello');         // false
-TrText.ContainsTurkishChars('Hello Dünya');   // true
-```
-
-#### `IsMixedCase(text: string): boolean`
-Checks if text contains both uppercase and lowercase characters.
-
-```typescript
-TrText.IsMixedCase('Istanbul');   // true
-TrText.IsMixedCase('ISTANBUL');   // false
-TrText.IsMixedCase('istanbul');   // false
-```
-
-#### `GetTurkishCharCount(text: string): number`
-Counts Turkish characters in text.
-
-```typescript
-TrText.GetTurkishCharCount('Merhaba');        // 0
-TrText.GetTurkishCharCount('Söğütlüçeşme');        // 5 (ö,ü,ü,ç,ş)
-TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
-```
-
-## Turkish Characters Supported
+## Supported Turkish Characters
 
 | Uppercase | Lowercase |
-|-----------|-----------|
-| İ         | i         |
-| I         | ı         |
-| Ç         | ç         |
-| Ğ         | ğ         |
-| Ş         | ş         |
-| Ö         | ö         |
-| Ü         | ü         |
+| --- | --- |
+| `İ` | `i` |
+| `I` | `ı` |
+| `Ç` | `ç` |
+| `Ğ` | `ğ` |
+| `Ş` | `ş` |
+| `Ö` | `ö` |
+| `Ü` | `ü` |
 
 ## License
 
-See [LICENSE](LICENSE) file for details.
+See [LICENSE](LICENSE) for details.
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
----
-
-# Türkçe Toolbox 🇹🇷
-
-Türkçe metin işleme için kapsamlı bir TypeScript yardımcı kütüphanesi. Türkçe karakter büyük/küçük harf dönüşümü, doğrulama ve dönüştürme işlevlerini Türk dil kurallarına uygun şekilde işler.
-
-## Özellikler
-
-✨ **Harf Dönüşümü**
-- Türkçe büyük harf dönüşümü (`TurkishToUpper`)
-- Türkçe küçük harf dönüşümü (`TurkishToLower`)
-- Türkçe kurallara göre ilk harfi büyüt (`TurkishCapitalize`)
-- Türkçe desteğiyle büyük/küçük harf değişimi (`TurkishToggleCase`)
-
-🔤 **Karakter Dönüştürme**
-- ASCII'yi Türkçe büyük harfe dönüştür (`ToTurkish`)
-- Türkçe karakterleri ASCII'ye çevir (`RemoveTurkishChars`)
-- Türkçe dönüştürmesini geri al (`ReverseTurkish`)
-- Türkçe diakritikleri kaldır (`StripTurkishDiacritics`)
-
-🔍 **Metin Analizi**
-- Türkçe karakterleri kontrol et (`ContainsTurkishChars`)
-- Karışık durumlu metni algıla (`IsMixedCase`)
-- Türkçe karakter sayısını bul (`GetTurkishCharCount`)
-
-## Kurulum
-
-```bash
-npm install @bytegis/turkish-toolbox
-```
-
-## Hızlı Başlangıç
-
-```typescript
-import { TrText } from '@bytegis/turkish-toolbox';
-
-// Büyük harfe dönüştürme
-TrText.TurkishToUpper('istanbul'); // İSTANBUL
-
-// Küçük harfe dönüştürme
-TrText.TurkishToLower('İSTANBUL'); // istanbul
-
-// İlk harfi büyüt
-TrText.TurkishCapitalize('istanbul'); // İstanbul
-
-// Türkçe karakter kontrolü
-TrText.ContainsTurkishChars('Merhaba'); // true
-```
-
-## API Referansı
-
-### Harf Dönüşümü
-
-#### `TurkishToUpper(text: string): string`
-Metni Türkçe karakter kurallarını kullanarak büyük harfe dönüştürür.
-
-```typescript
-TrText.TurkishToUpper('istanbul');     // İSTANBUL
-TrText.TurkishToUpper('söğütlüçeşme');      // SÖĞÜTLÜÇEŞME
-TrText.TurkishToUpper('mühendis');     // MÜHENDİS
-```
-
-#### `TurkishToLower(text: string): string`
-Metni Türkçe karakter kurallarını kullanarak küçük harfe dönüştürür.
-
-```typescript
-TrText.TurkishToLower('ISTANBUL');     // istanbul
-TrText.TurkishToLower('SÖĞÜTLÜÇEŞME');      // söğütlüçeşme
-TrText.TurkishToLower('MÜHENDİS');     // mühendis
-```
-
-#### `TurkishCapitalize(text: string): string`
-Türkçe kurallarıyla ilk karakteri büyüklüklü yapar.
-
-```typescript
-TrText.TurkishCapitalize('istanbul');  // İstanbul
-TrText.TurkishCapitalize('ankara');    // Ankara
-```
-
-#### `TurkishToggleCase(text: string): string`
-Büyük/küçük harf değişimi yapar ve Türkçe kurallarına uyar.
-
-```typescript
-TrText.TurkishToggleCase('İstanbul');  // İSTANBUL
-TrText.TurkishToggleCase('ANKARA');    // ankara
-```
-
-### Karakter Dönüştürme
-
-#### `ToTurkish(text: string): string`
-ASCII metni Türkçe karakter desteğiyle büyük harfe dönüştürür.
-
-```typescript
-TrText.ToTurkish('istanbul');  // İSTANBUL
-TrText.ToTurkish('ankara');    // ANKARA
-```
-
-#### `RemoveTurkishChars(text: string): string`
-Türkçe karakterleri ASCII eşdeğerlerine dönüştürür ve alfanümerik olmayan karakterleri kaldırır.
-
-```typescript
-TrText.RemoveTurkishChars('Merhaba, Dünya!');  // Merhaba Dunya
-TrText.RemoveTurkishChars('Göztepe-İzmir');    // Goztepe-Izmir
-```
-
-#### `ReverseTurkish(text: string): string`
-`ToTurkish` işlemini geri alır (Türkçe büyük harfleri ASCII'ye çevirir).
-
-```typescript
-TrText.ReverseTurkish('İSTANBUL');  // ISTANBUL
-TrText.ReverseTurkish('SÖĞÜTLÜÇEŞME');   // SOGUTLUCESME
-```
-
-#### `StripTurkishDiacritics(text: string): string`
-Türkçe diakritikleri kaldırırken temel harfleri tutar.
-
-```typescript
-TrText.StripTurkishDiacritics('söğütlüçeşme');     //sogutlucesme
-TrText.StripTurkishDiacritics('MÜHENDIS');    // MUHENDIS
-```
-
-### Metin Analizi
-
-#### `ContainsTurkishChars(text: string): boolean`
-Metinde herhangi bir Türkçe karakter olup olmadığını kontrol eder.
-
-```typescript
-TrText.ContainsTurkishChars('Merhaba');       // true
-TrText.ContainsTurkishChars('Hello');         // false
-TrText.ContainsTurkishChars('Hello Dünya');   // true
-```
-
-#### `IsMixedCase(text: string): boolean`
-Metinde büyük ve küçük harflerin karışık olup olmadığını kontrol eder.
-
-```typescript
-TrText.IsMixedCase('Istanbul');   // true
-TrText.IsMixedCase('ISTANBUL');   // false
-TrText.IsMixedCase('istanbul');   // false
-```
-
-#### `GetTurkishCharCount(text: string): number`
-Metindeki Türkçe karakter sayısını sayar.
-
-```typescript
-TrText.GetTurkishCharCount('Merhaba');        // 0
-TrText.GetTurkishCharCount('Göztepe');        // 1 (ö)
-TrText.GetTurkishCharCount('Mühendis');       // 2 (ü, i)
-```
-
-## Desteklenen Türkçe Karakterler
-
-| Büyük Harf | Küçük Harf |
-|-----------|-----------|
-| İ         | i         |
-| I         | ı         |
-| Ç         | ç         |
-| Ğ         | ğ         |
-| Ş         | ş         |
-| Ö         | ö         |
-| Ü         | ü         |
-
----
-
-**Built with ❤️ for Turkish language support**
+Contributions are welcome. Feel free to open issues or submit pull requests.
