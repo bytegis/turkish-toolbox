@@ -1,6 +1,6 @@
 {
   "name": "@bytegis/turkish-toolbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/types/index.d.ts",
@@ -34,8 +34,7 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.8.3"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bytegis/turkish-toolbox"
