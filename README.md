@@ -168,7 +168,7 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
 
-# Türk Toolbox 🇹🇷
+# Türkçe Toolbox 🇹🇷
 
 Türkçe metin işleme için kapsamlı bir TypeScript yardımcı kütüphanesi. Türkçe karakter büyük/küçük harf dönüşümü, doğrulama ve dönüştürme işlevlerini Türk dil kurallarına uygun şekilde işler.
 
