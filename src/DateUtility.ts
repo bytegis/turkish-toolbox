@@ -49,8 +49,30 @@ export const DateUtility = {
   },
 
   ToRelative: (date: Date, baseDate: Date = new Date()): string => {
-    const diffMs = startOfDay(date).getTime() - startOfDay(baseDate).getTime();
-    const diffDays = Math.round(diffMs / 86400000);
+    const diffMs = date.getTime() - baseDate.getTime();
+    const absDiffMs = Math.abs(diffMs);
+    const isInPast = diffMs < 0;
+
+    // Less than 1 minute
+    if (absDiffMs < 60000) {
+      return isInPast ? "az önce" : "az sonra";
+    }
+
+    // Less than 1 hour
+    if (absDiffMs < 3600000) {
+      const diffMinutes = Math.round(absDiffMs / 60000);
+      return isInPast ? diffMinutes + " dakika önce" : diffMinutes + " dakika sonra";
+    }
+
+    // Less than 1 day
+    if (absDiffMs < 86400000) {
+      const diffHours = Math.round(absDiffMs / 3600000);
+      return isInPast ? diffHours + " saat önce" : diffHours + " saat sonra";
+    }
+
+    // Days and beyond
+    const startOfDayDiffMs = startOfDay(date).getTime() - startOfDay(baseDate).getTime();
+    const diffDays = Math.round(startOfDayDiffMs / 86400000);
 
     if (diffDays === 0) return "bugün";
     if (diffDays === -1) return "dün";
