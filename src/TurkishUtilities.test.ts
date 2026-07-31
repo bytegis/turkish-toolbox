@@ -52,6 +52,14 @@ describe("TrDate", () => {
     expect(TrDate.ToRelative(new Date(2026, 6, 28), date)).toBe("yarın");
     expect(TrDate.ToRelative(new Date(2026, 6, 24), date)).toBe("3 gün önce");
   });
+
+  it("returns Turkish relative time labels in minutes", () => {
+    const now = new Date(2026, 6, 27, 12, 0, 0);
+    expect(TrDate.ToRelativeMinutes(new Date(2026, 6, 27, 11, 59, 59), now)).toBe("az önce");
+    expect(TrDate.ToRelativeMinutes(new Date(2026, 6, 27, 12, 0, 1), now)).toBe("az sonra");
+    expect(TrDate.ToRelativeMinutes(new Date(2026, 6, 27, 11, 55, 0), now)).toBe("5 dakika önce");
+    expect(TrDate.ToRelativeMinutes(new Date(2026, 6, 27, 12, 5, 0), now)).toBe("5 dakika sonra");
+  });
 });
 
 describe("TrCurrency", () => {
