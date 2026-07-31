@@ -51,7 +51,7 @@ const integerToWords = (value: number): string => {
   return words.join(" ");
 };
 
-export const CurrencyUtility = {
+export const TrCurrency = {
   FormatTRY: (value: number): string => new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY" }).format(value),
 
   ParseTRY: (value: string): number => {

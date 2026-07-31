@@ -2,7 +2,7 @@ const ONLY_DIGITS = /\D/g;
 
 const digitsOf = (value: string): number[] => value.replace(ONLY_DIGITS, "").split("").map((digit) => Number(digit));
 
-export const IdentityUtility = {
+export const TrIdentity = {
   NormalizeIdentityNumber: (value: string): string => {
     if (!value) return value;
     return value.replace(ONLY_DIGITS, "");
@@ -35,7 +35,7 @@ export const IdentityUtility = {
   },
 
   MaskTCKN: (value: string): string => {
-    const normalized = IdentityUtility.NormalizeIdentityNumber(value);
+    const normalized = TrIdentity.NormalizeIdentityNumber(value);
     if (normalized.length <= 4) return normalized;
     return normalized.slice(0, 3) + "******" + normalized.slice(-2);
   },

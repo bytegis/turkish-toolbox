@@ -84,7 +84,7 @@ const CITIES = [
 
 const cityKey = (value: string): string => value.toLocaleLowerCase("tr-TR").replace(/\s+/g, "");
 
-export const AddressUtility = {
+export const TrAddress = {
   Cities: CITIES.slice(),
 
   NormalizeCity: (value: string): string | null => {
@@ -103,12 +103,12 @@ export const AddressUtility = {
 
   GetCityByPlateCode: (value: number | string): string | null => {
     const code = Number(value);
-    if (!AddressUtility.IsValidPlateCode(code)) return null;
+    if (!TrAddress.IsValidPlateCode(code)) return null;
     return CITIES[code - 1];
   },
 
   GetPlateCode: (city: string): number | null => {
-    const normalized = AddressUtility.NormalizeCity(city);
+    const normalized = TrAddress.NormalizeCity(city);
     if (!normalized) return null;
     return CITIES.indexOf(normalized) + 1;
   },

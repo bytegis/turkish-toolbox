@@ -20,17 +20,17 @@ const mod97 = (numeric: string): number => {
   return remainder;
 };
 
-export const IBANUtility = {
+export const TrIBAN = {
   Normalize: (value: string): string => (value ? value.replace(/\s/g, "").toUpperCase() : value),
 
   IsValid: (value: string): boolean => {
-    const iban = IBANUtility.Normalize(value);
+    const iban = TrIBAN.Normalize(value);
     if (!/^TR\d{24}$/.test(iban)) return false;
     return mod97(ibanToNumeric(iban)) === 1;
   },
 
   Format: (value: string): string => {
-    const iban = IBANUtility.Normalize(value);
+    const iban = TrIBAN.Normalize(value);
     return iban.replace(/(.{4})/g, "$1 ").trim();
   },
 };

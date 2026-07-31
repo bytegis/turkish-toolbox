@@ -36,7 +36,7 @@ const TURKISH_TO_ASCII_MAP: Record<string, string> = {
   ğ: "g",
 };
 
-export const TextUtility = {
+export const TrText = {
   /**
    * Converts text to uppercase using Turkish character rules
    * @param text - The text to convert

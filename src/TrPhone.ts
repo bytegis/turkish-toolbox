@@ -47,7 +47,7 @@ const formatNationalTenDigits = (digits: string, leadingZero: boolean): string =
   return prefix + digits.slice(0, 3) + " " + digits.slice(3, 6) + " " + digits.slice(6, 8) + " " + digits.slice(8);
 };
 
-export const PhoneUtility = {
+export const TrPhone = {
   Normalize: (value: string): string => {
     const national = nationalNumber(value);
     if (national.length !== 10) return value ? value.replace(/\s/g, "") : value;

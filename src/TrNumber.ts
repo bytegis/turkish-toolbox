@@ -1,4 +1,4 @@
-export const NumberUtility = {
+export const TrNumber = {
   FormatDecimal: (value: number, fractionDigits: number = 2): string =>
     new Intl.NumberFormat("tr-TR", {
       minimumFractionDigits: fractionDigits,

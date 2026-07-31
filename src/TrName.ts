@@ -5,7 +5,7 @@ const titleCaseWord = (word: string): string => {
   return word.charAt(0).toLocaleUpperCase("tr-TR") + word.slice(1).toLocaleLowerCase("tr-TR");
 };
 
-export const NameUtility = {
+export const TrName = {
   Format: (value: string): string => {
     if (!value) return value;
     return value
@@ -18,7 +18,7 @@ export const NameUtility = {
 
   Initials: (value: string): string => {
     if (!value) return value;
-    return NameUtility.Format(value)
+    return TrName.Format(value)
       .split(" ")
       .filter(Boolean)
       .map((word) => word.charAt(0).toLocaleUpperCase("tr-TR"))
@@ -27,7 +27,7 @@ export const NameUtility = {
 
   MaskName: (value: string): string => {
     if (!value) return value;
-    return NameUtility.Format(value)
+    return TrName.Format(value)
       .split(" ")
       .map((word) => (word.length <= 1 ? word : word.charAt(0) + new Array(word.length).join("*")))
       .join(" ");

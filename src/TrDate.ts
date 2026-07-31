@@ -21,7 +21,7 @@ const startOfDay = (date: Date): Date => new Date(date.getFullYear(), date.getMo
 
 export type TurkishDateFormat = "short" | "long" | "iso";
 
-export const DateUtility = {
+export const TrDate = {
   GetMonthName: (month: number): string => MONTHS[month - 1] || "",
 
   GetDayName: (date: Date): string => DAYS[date.getDay()],
@@ -43,15 +43,17 @@ export const DateUtility = {
     const match = value.trim().match(/^(\d{1,2})\s+([A-Za-zÇĞİÖŞÜçğıöşü]+)\s+(\d{4})$/);
     if (!match) return null;
 
-    const monthIndex = MONTHS.map((month) => month.toLocaleLowerCase("tr-TR")).indexOf(match[2].toLocaleLowerCase("tr-TR"));
+    const monthIndex = MONTHS.map((month) => month.toLocaleLowerCase("tr-TR")).indexOf(
+      match[2].toLocaleLowerCase("tr-TR"),
+    );
     if (monthIndex < 0) return null;
     return new Date(Number(match[3]), monthIndex, Number(match[1]));
   },
 
-  ToRelative: (date: Date, baseDate: Date = new Date()): string => {
+  ToRelativeMinutes: (date: Date, baseDate: Date = new Date()): string => {
     const diffMs = date.getTime() - baseDate.getTime();
     const absDiffMs = Math.abs(diffMs);
-    const isInPast = diffMs < 0;
+    const isInPast = diffMs <= 0;
 
     // Less than 1 minute
     if (absDiffMs < 60000) {
@@ -70,6 +72,10 @@ export const DateUtility = {
       return isInPast ? diffHours + " saat önce" : diffHours + " saat sonra";
     }
 
+    return TrDate.ToRelative(date, baseDate);
+  },
+
+  ToRelative: (date: Date, baseDate: Date = new Date()): string => {
     // Days and beyond
     const startOfDayDiffMs = startOfDay(date).getTime() - startOfDay(baseDate).getTime();
     const diffDays = Math.round(startOfDayDiffMs / 86400000);
